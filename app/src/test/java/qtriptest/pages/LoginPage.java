@@ -30,6 +30,8 @@ private WebElement passwordText;
 @FindBy(xpath="//button[contains(text(),'Login to QTrip')]")
 private WebElement LoginButton;
 
+
+
 public boolean isNavigatetoLoginpage() throws InterruptedException{
 Thread.sleep(2000);
 return driver.getCurrentUrl().contains(loginpageEndpoint) && 
@@ -51,5 +53,6 @@ public void performlogin(String emailId, String password, boolean withDynamicUse
 
     actions.moveToElement(this.LoginButton).click().build().perform();
 }
+
 
 }

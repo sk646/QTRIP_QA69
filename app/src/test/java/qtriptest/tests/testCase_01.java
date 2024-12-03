@@ -38,7 +38,8 @@ loginPage = new LoginPage(driver,registerPage );
 
 }
 
-@Test(dataProvider = "QtripData",dataProviderClass = ExternalDataProvider.class,description="New User registration and validating login and logout")
+@Test(dataProvider = "QtripData",dataProviderClass = ExternalDataProvider.class,description="New User registration and validating login and logout",
+ priority = 1,groups = {"Login Flow"})
 public void TestCase01(String username,String password) throws InterruptedException{
  softAssert = new SoftAssert();
 

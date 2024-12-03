@@ -18,4 +18,16 @@ public Object[][] QtripCityData() throws IOException{
     return data.dpMethod("TestCase02");
 }
 
+@DataProvider(name="QtripNewUserData")
+public Object[][] TestNewUserData() throws IOException{
+    DP data = new DP();
+    return data.dpMethod("TestCase03");
+}
+
+@DataProvider(name="QtripDataSet")
+public Object[][] TestDataSet() throws IOException{
+    DP data = new DP();
+    return data.dpMethod("TestCase04");
+}
+
 }
