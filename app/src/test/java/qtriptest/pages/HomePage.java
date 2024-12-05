@@ -1,5 +1,7 @@
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
+import java.net.MalformedURLException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -47,9 +49,10 @@ public HomePage(RemoteWebDriver driver){
     return RegisterButton.isDisplayed() && RegisterButton.isEnabled();
   }
 
-  public void navigateToRegistrationPage() throws InterruptedException{
+  public void navigateToRegistrationPage() throws InterruptedException, MalformedURLException{
     System.out.println("Navigating to Registration page");
-    RegisterButton.click();
+    SeleniumWrapper.click(RegisterButton);
+    // RegisterButton.click();
     Thread.sleep(4000);
   }
 
@@ -59,9 +62,10 @@ public HomePage(RemoteWebDriver driver){
     return LogoutButton.getText().equals("Logout");
   }
 
-  public void LogoutUser(){
-    Actions ac = new Actions(driver);
-    ac.moveToElement(LogoutButton).click().build().perform();
+  public void LogoutUser() throws MalformedURLException{
+    // Actions ac = new Actions(driver);
+    // ac.moveToElement(LogoutButton).click().build().perform();
+    SeleniumWrapper.click(LogoutButton);
   }
 
   public void searchbar(String City) throws InterruptedException{

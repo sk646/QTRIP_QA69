@@ -1,5 +1,7 @@
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
+import java.net.MalformedURLException;
 import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -52,7 +54,8 @@ public void filterpage(String DurationFilter){
     Select sc = new Select(durationFilter); 
     sc.selectByVisibleText(DurationFilter); 
     Thread.sleep(3000);
-    durationFilter.click();
+    // durationFilter.click();
+    SeleniumWrapper.click(durationFilter);
     }catch(Exception e){
     System.out.println(e.getMessage());
     }
@@ -63,15 +66,18 @@ public void categorychoose(String CategoryFilter){
     Select sc = new Select(categoryFilter);
     sc.selectByVisibleText(CategoryFilter);
     Thread.sleep(3000);
-    categoryFilter.click();
+    // categoryFilter.click();
+    SeleniumWrapper.click(categoryFilter);
   }catch(Exception e){
    System.out.println(e.getMessage());
   }
 }
 
-public void clearfilter(){
-    clearDuration.click();
-    clearCategory.click();
+public void clearfilter() throws MalformedURLException{
+    // clearDuration.click();
+    // clearCategory.click();
+    SeleniumWrapper.click(clearDuration);
+    SeleniumWrapper.click(clearCategory);
 }
 public boolean isNavigateToadventurePage()throws InterruptedException{
     System.out.println("Navigating to adventure page");

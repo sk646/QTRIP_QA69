@@ -1,12 +1,15 @@
 package qtriptest.tests;
 
+import qtriptest.ReportSingleton;
 import qtriptest.driverManager.DriverSingleton;
 import qtriptest.pages.AdventurePage;
 import qtriptest.pages.HomePage;
 import qtriptest.pages.LoginPage;
 import qtriptest.pages.RegisterPage;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
+import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -34,6 +37,7 @@ public void setup() throws MalformedURLException{
     // RemoteWebDriver driver = new ChromeDriver();
     driver=DriverSingleton.getDriver("chrome");
     DriverSingleton.launchApp("https://qtripdynamic-qa-frontend.vercel.app/");
+    ReportSingleton.report= ReportSingleton.getReport();
     
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     // driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
@@ -44,9 +48,10 @@ public void setup() throws MalformedURLException{
 
 @Test(dataProvider = "QtripCityData",dataProviderClass = ExternalDataProvider.class,description="Searching for places in Home page",
 priority=2,groups = {"Search and Filter Flow"})
-public void TestCase02(String CityName,String Category_Filter, String DurationFilter, String ExpectedFilteredResults, String ExpectedUnFilteredResults) throws InterruptedException{
+public void TestCase02(String CityName,String Category_Filter, String DurationFilter, String ExpectedFilteredResults, String ExpectedUnFilteredResults) throws InterruptedException, IOException{
     assertion = new Assertion();
     boolean status;
+    ReportSingleton.test=ReportSingleton.report.startTest( "Search and Filter Flow");
     // homePage.isNavigatetoHomePage();
     // Thread.sleep(2000);
     // homePage.searchbar("Hyderabad");
@@ -54,6 +59,7 @@ public void TestCase02(String CityName,String Category_Filter, String DurationFi
     // status = homePage.iscityNotFound();
     // assertion.assertFalse(status, "Places found");
     // Thread.sleep(3000);
+    try{
     System.out.println("Searching City");
     homePage.searchbar(CityName);
     // homePage.iscityFoundOrnot();
@@ -72,13 +78,20 @@ public void TestCase02(String CityName,String Category_Filter, String DurationFi
     driver.navigate().back();
     // softAssert.assertTrue(adventurePage.entirepageData,"not displayed search city data");
     // softAssert.assertAll();
+    ReportSingleton.test.log(LogStatus.PASS, "Succesfully Search and Filter Flow ");
+}catch (Exception e) {
+    //TODO: handle exception
+    ReportSingleton.test.log(LogStatus.FAIL,ReportSingleton.test.addScreenCapture(ReportSingleton.capture(driver))+ "Failed to Verify Search and Filter flow ");
     
+    }
 }
 
-@AfterSuite
+@AfterSuite(alwaysRun = true)
 public void teardown()throws MalformedURLException{
     driver.quit();
     System.out.println("Application closed");
+    ReportSingleton.report.endTest(ReportSingleton.test);
+    ReportSingleton.report.flush();
 }
 
 }

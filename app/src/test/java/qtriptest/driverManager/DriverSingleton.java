@@ -39,4 +39,8 @@ public class DriverSingleton {
   public static void launchApp(String AppURL){
     driver.get(AppURL);
   }
+
+//   public static void closeApp(){
+//     driver.quit();
+// }
 }

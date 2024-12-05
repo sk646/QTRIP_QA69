@@ -1,5 +1,7 @@
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
+import java.net.MalformedURLException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -49,11 +51,13 @@ public static boolean messageResult(){
     return reservationSuccess.getText().contains("successful");
     
 }
-public static void bookingHistory(){
-    veiwBookings.click();
+public static void bookingHistory() throws MalformedURLException{
+    // veiwBookings.click();
+    SeleniumWrapper.click(veiwBookings);
 }
 
-public static void navigateHome(){
-    moveToHome.click();
+public static void navigateHome() throws MalformedURLException{
+    // moveToHome.click();
+    SeleniumWrapper.click(moveToHome);
 }
 }
